@@ -14,6 +14,7 @@ import { SearchInput } from "@/components/search-input";
 import { DomainGrid } from "@/components/domain-card";
 import { TLDSelector } from "@/components/tld-selector";
 import { FilterPanel, type FilterOptions } from "@/components/filter-panel";
+import { AISuggestions } from "@/components/ai-suggestions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useDomainSearch } from "@/hooks/use-domain-search";
@@ -162,6 +163,32 @@ export default function SearchPage() {
             maxSelections={5}
           />
         </div>
+
+        {/* AI Suggestions (Pro Feature) */}
+        {keywords.length > 0 && (
+          <div className="mb-6">
+            <AISuggestions
+              keywords={keywords}
+              onSelectDomain={(name, tld) => {
+                // Check single domain
+                search({
+                  keywords: [name],
+                  tlds: [tld],
+                  count: 1,
+                  checkAvailability: true,
+                });
+              }}
+              onSaveDomain={(name, tld) => {
+                const fullDomain = `${name}.${tld}`;
+                if (!savedDomains.includes(fullDomain)) {
+                  setSavedDomains([...savedDomains, fullDomain]);
+                }
+              }}
+              savedDomains={savedDomains}
+              isPro={false} // Set to true when user has Pro plan
+            />
+          </div>
+        )}
 
         {/* Results Section */}
         <div className="flex gap-6">

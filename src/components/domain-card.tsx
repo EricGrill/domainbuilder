@@ -89,11 +89,21 @@ export function DomainCard({
             <div className="flex items-center gap-2 mt-2">
               <div className="flex-1 h-1.5 bg-[var(--muted)] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[var(--primary)] rounded-full transition-all"
+                  className={cn(
+                    "h-full rounded-full transition-all",
+                    domain.score >= 85 ? "bg-green-500" :
+                    domain.score >= 70 ? "bg-amber-500" :
+                    domain.score >= 50 ? "bg-orange-500" : "bg-red-500"
+                  )}
                   style={{ width: `${domain.score}%` }}
                 />
               </div>
-              <span className="text-xs font-medium text-[var(--text-secondary)]">
+              <span className={cn(
+                "text-xs font-medium",
+                domain.score >= 85 ? "text-green-600" :
+                domain.score >= 70 ? "text-amber-600" :
+                domain.score >= 50 ? "text-orange-600" : "text-red-600"
+              )}>
                 {domain.score}
               </span>
             </div>
