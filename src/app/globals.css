@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind v4 source paths */
+@source "../components/**/*.tsx";
+@source "../hooks/**/*.tsx";
+@source "./**/*.tsx";
+
 /* Brandspark Design Tokens */
 :root {
   /* Primary - Deep Teal */
