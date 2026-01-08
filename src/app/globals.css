@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
+/* Brandspark Design Tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary - Deep Teal */
+  --primary: #0D9488;
+  --primary-dark: #0F766E;
+  --primary-light: #5EEAD4;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary - Warm Coral */
+  --secondary: #F97316;
+  --secondary-light: #FFEDD5;
+  --secondary-foreground: #FFFFFF;
+
+  /* Semantic Colors */
+  --success: #10B981;
+  --success-light: #D1FAE5;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --error: #EF4444;
+  --error-light: #FEE2E2;
+  --info: #3B82F6;
+  --info-light: #DBEAFE;
+
+  /* Backgrounds */
+  --background: #FAFAFA;
+  --foreground: #18181B;
+  --surface: #FFFFFF;
+  --muted: #F4F4F5;
+  --border: #E4E4E7;
+
+  /* Text */
+  --text-primary: #18181B;
+  --text-secondary: #71717A;
+  --text-muted: #A1A1AA;
+
+  /* Card */
+  --card: #FFFFFF;
+  --card-foreground: #18181B;
+
+  /* Radius */
+  --radius: 0.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
 }
 
+/* Dark mode - keeping light for now, can enable later */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Keep light mode for MVP */
   }
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Domain name display - monospace */
+.domain-name {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+/* Status badges */
+.badge-available {
+  background-color: var(--success-light);
+  color: #065F46;
+}
+
+.badge-taken {
+  background-color: var(--error-light);
+  color: #991B1B;
+}
+
+.badge-premium {
+  background-color: var(--warning-light);
+  color: #92400E;
+}
+
+.badge-pro {
+  background: linear-gradient(135deg, #7C3AED, #2563EB);
+  color: white;
+}
+
+/* Utility classes */
+.text-balance {
+  text-wrap: balance;
 }
