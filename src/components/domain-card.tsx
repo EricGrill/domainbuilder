@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Heart, ExternalLink, Check, X, Loader2 } from "lucide-react";
+import { Heart, ExternalLink, Check, X, Loader2, Palette } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,14 +19,18 @@ interface DomainCardProps {
   domain: DomainResult;
   onSave?: (domain: DomainResult) => void;
   onRegister?: (domain: DomainResult) => void;
+  onBrandPreview?: (domain: DomainResult) => void;
   isSaved?: boolean;
+  showBrandPreview?: boolean;
 }
 
 export function DomainCard({
   domain,
   onSave,
   onRegister,
+  onBrandPreview,
   isSaved = false,
+  showBrandPreview = false,
 }: DomainCardProps) {
   const fullDomain = `${domain.domain}.${domain.tld}`;
 
@@ -121,15 +125,24 @@ export function DomainCard({
           size="sm"
           onClick={() => onSave?.(domain)}
           className={cn(
-            "flex-1",
             isSaved && "text-red-500 hover:text-red-600"
           )}
         >
           <Heart
-            className={cn("h-4 w-4 mr-1.5", isSaved && "fill-current")}
+            className={cn("h-4 w-4", isSaved && "fill-current")}
           />
-          {isSaved ? "Saved" : "Save"}
         </Button>
+
+        {showBrandPreview && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onBrandPreview?.(domain)}
+            className="text-purple-600 hover:text-purple-700"
+          >
+            <Palette className="h-4 w-4" />
+          </Button>
+        )}
 
         {domain.available === true && (
           <Button
@@ -152,14 +165,18 @@ interface DomainGridProps {
   domains: DomainResult[];
   onSave?: (domain: DomainResult) => void;
   onRegister?: (domain: DomainResult) => void;
+  onBrandPreview?: (domain: DomainResult) => void;
   savedDomains?: string[];
+  showBrandPreview?: boolean;
 }
 
 export function DomainGrid({
   domains,
   onSave,
   onRegister,
+  onBrandPreview,
   savedDomains = [],
+  showBrandPreview = false,
 }: DomainGridProps) {
   if (domains.length === 0) {
     return (
@@ -179,7 +196,9 @@ export function DomainGrid({
           domain={domain}
           onSave={onSave}
           onRegister={onRegister}
+          onBrandPreview={onBrandPreview}
           isSaved={savedDomains.includes(`${domain.domain}.${domain.tld}`)}
+          showBrandPreview={showBrandPreview}
         />
       ))}
     </div>
